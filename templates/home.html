@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="div_space">
+        <h4>Here will be the list of foods in the fridge.</h4>
+        <br>
+        <h3> Today is: </h3>
+    </div>
+    <div class="div_space">
+        <table>
+            <tr>
+                <th>Food Expire Date</th>
+                <th>Food Name</th>
+                <th>Image</th>
+                <th>Options</th>
+            </tr>
+            <tr>
+                {% for food in foods %}
+                    <td>{{ food.exp_date }}</td>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.img_file }}</td>
+                    <td>Delete</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+{% endblock %}

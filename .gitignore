@@ -1,0 +1,4 @@
+.idea/
+__pycache__/application.cpython-37.pyc
+templates/__pycache__/models.cpython-37.pyc
+fooddata.db
