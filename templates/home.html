@@ -3,12 +3,18 @@
     <div class="div_space">
         <h4>Here will be the list of foods in the fridge.</h4>
         <br>
-        <h3> Today is: </h3>
+        <h3> Today is: {{ today }}</h3>
     </div>
+    <br>
+    <div class="div_space">
+        Would you like to<a class="button_small" href="{{ url_for('add_food') }}">ADD</a>new food?
+    </div>
+    <br>
     <div class="div_space">
         <table>
             <tr>
                 <th>Food Expire Date</th>
+                <th>Days Left</th>
                 <th>Food Name</th>
                 <th>Image</th>
                 <th>Options</th>
@@ -16,8 +22,9 @@
             <tr>
                 {% for food in foods %}
                     <td>{{ food.exp_date }}</td>
+                    <td>{{ food.calculate_days_left(today) }}</td>
                     <td>{{ food.name }}</td>
-                    <td>{{ food.img_file }}</td>
+                    <td><img src="{{ url_for('static', filename='images/') }}{{ food.picture }}"></td>
                     <td>Delete</td>
                 {% endfor %}
             </tr>
