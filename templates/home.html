@@ -22,7 +22,15 @@
             {% for food in foods %}
                 <tr>
                     <td>{{ food.exp_date.date() }}</td>
-                    <td>{{ food.calculate_days_left(today) }}</td>
+                    {% if food.calculate_days_left(today) < 15 %}
+                        <td class="near_exp">
+                            {{ food.calculate_days_left(today) }}
+                        </td>
+                    {% else %}
+                        <td>
+                            {{ food.calculate_days_left(today) }}
+                        </td>
+                    {% endif %}
                     <td>{{ food.name }}</td>
                     <td><img src="{{ url_for('static', filename='images/') }}{{ food.picture }}"></td>
                     <td><form action="{{ url_for('delete_food', food_id=food.id) }}" method="POST">

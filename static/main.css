@@ -10,7 +10,14 @@ table, td, th {
   color: black;
 }
 
+
+
 table, tr:nth-child(even){background-color: #f2f2f2;}
+
+.near_exp {
+    font-weight: bold;
+    color: red;
+}
 
 table, tr:hover {background-color: orange;}
 
@@ -18,7 +25,7 @@ table, th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: steelblue;
+  background-color: lightsteelblue;
   color: white;
 }
 

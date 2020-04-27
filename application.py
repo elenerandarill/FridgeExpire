@@ -15,7 +15,7 @@ from mainapp import app, db
 @app.route('/home')
 def home():
     from templates.models import Food
-    foods = Food.query.all()
+    foods = Food.query.order_by(Food.exp_date).all()
     today = datetime.date.today()
     return render_template("home.html", foods=foods, today=today)
 
