@@ -11,5 +11,5 @@ class Food(db.Model):
         return f"Food('{self.name}','{self.exp_date}', '{self.picture}')"
 
     def calculate_days_left(self, today):
-        days_left = today - self.exp_date
-        return days_left
+        days_left = self.exp_date.date() - today
+        return days_left.days

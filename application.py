@@ -4,16 +4,11 @@ import os
 import secrets
 
 from PIL import Image
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
 
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '2d65c65e323654552be29cc808a58eac'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fooddata.db'
-db = SQLAlchemy(app)
-
+from mainapp import app, db
 
 
 @app.route('/')
@@ -21,7 +16,7 @@ db = SQLAlchemy(app)
 def home():
     from templates.models import Food
     foods = Food.query.all()
-    today = datetime.datetime.today()
+    today = datetime.date.today()
     return render_template("home.html", foods=foods, today=today)
 
 
@@ -36,6 +31,7 @@ def add_food():
             food = Food(name=form.name.data, exp_date=form.exp_date.data, picture=new_picname)
             db.session.add(food)
             db.session.commit()
+            flash("Food has been added.", "success")
             return redirect(url_for("home"))
     return render_template('add_food.html', form=form)
 
@@ -53,5 +49,14 @@ def save_picture(form_picture):
     return picture_fn
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/food/<int:food_id>/delete', methods=['POST'])
+def delete_food(food_id):
+    from templates.models import Food
+    food = Food.query.get_or_404(food_id)
+    db.session.delete(food)
+    db.session.commit()
+    flash('Food has been deleted', 'info')
+    return redirect(url_for('home'))
+
+
+
