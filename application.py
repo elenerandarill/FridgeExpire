@@ -7,7 +7,7 @@ from PIL import Image
 from flask import Flask, url_for, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
-
+from pyzbar.pyzbar import decode
 from mainapp import app, db
 
 
@@ -47,6 +47,28 @@ def save_picture(form_picture):
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
+
+
+@app.route('/barcode/find', methods=['GET', 'POST'])
+def find_barcode():
+    from templates.models import BarFood
+    from forms import BarCodeForm
+    form = BarCodeForm()
+    if form.validate_on_submit():
+        if form.input_code.data:
+            b_code = form.input_code.data
+            return f"Your barcode from text is: {b_code}"
+        elif form.image_code.data:
+            picture = form.image_code.data
+            i = Image.open(picture)
+            i.save("static/images/barcode.jpg")
+            bar_info = decode(Image.open("static/images/barcode.jpg"))
+            for barcode in bar_info:
+                b_code = barcode.data
+                return f"Your barcode from image is: {b_code}"
+        else:
+            return redirect(url_for("find_barcode"))
+    return render_template("find_barcode.html", form=form)
 
 
 @app.route('/food/<int:food_id>/delete', methods=['POST'])

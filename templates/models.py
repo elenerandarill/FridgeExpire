@@ -13,3 +13,12 @@ class Food(db.Model):
     def calculate_days_left(self, today):
         days_left = self.exp_date.date() - today
         return days_left.days
+
+
+class BarFood(db.Model):
+    barcode = db.Column(db.String, primary_key=True, nullable=False, unique=True)
+    name = db.Column(db.String, nullable=False)
+    image_code = db.Column(db.String(20), nullable=False, default='deffood.jpg')
+
+    def __repr__(self):
+        return f"BarFood('{self.barcode}','{self.name}','{self.image_code}')"

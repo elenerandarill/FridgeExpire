@@ -9,3 +9,10 @@ class AddFoodForm(FlaskForm):
     exp_date = DateField('Exp Date', validators=[DataRequired()])
     picture = FileField("Add picture", validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add Food')
+
+
+class BarCodeForm(FlaskForm):
+    image_code = FileField('Upload image with barcode', validators=[FileAllowed(['jpg', 'png'])])
+    input_code = StringField('Type barcode here', validators=[])
+    submit = SubmitField('Add Barcode')
+
