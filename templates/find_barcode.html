@@ -1,19 +1,24 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <form method="POST" action="/barcode/find" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <fieldset>
+    <div class="div_space">
+        <form method="POST" action="/barcode/find" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <br>
+                <div>
+                    {{ form.image_code.label() }}
+                    <input id="image_code" name="image_code" type="file" accept="image/*" capture="camera">
+                </div>
+                <br>
+                <div>
+                    {{ form.input_code.label() }}
+                    {{ form.input_code() }}
+                </div>
+            </fieldset>
+            <br>
             <div>
-                {{ form.image_code.label() }}
-                <input id="image_code" name="image_code" type="file" accept="image/*" capture="camera">
+                {{ form.submit(class="button") }}
             </div>
-            <div>
-                {{ form.input_code.label() }}
-                {{ form.input_code() }}
-            </div>
-        </fieldset>
-        <div>
-            {{ form.submit(class="button") }}
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}

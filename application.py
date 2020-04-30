@@ -55,20 +55,35 @@ def find_barcode():
     from forms import BarCodeForm
     form = BarCodeForm()
     if form.validate_on_submit():
-        if form.input_code.data:
-            b_code = form.input_code.data
-            return f"Your barcode from text is: {b_code}"
-        elif form.image_code.data:
-            picture = form.image_code.data
-            i = Image.open(picture)
-            i.save("static/images/barcode.jpg")
-            bar_info = decode(Image.open("static/images/barcode.jpg"))
-            for barcode in bar_info:
-                b_code = barcode.data
-                return f"Your barcode from image is: {b_code}"
+        b_code = get_barcode(form)
+        if b_code != 'empty':
+            all_bars = BarFood.query.all()
+            if all_bars:
+                for bar in all_bars:
+                    if bar.barcode == b_code:
+                        return f"Barcode {b_code} is already in database."
+            else:
+                return f"This barcode {b_code} is new and can be added."
         else:
+            flash("Try adding barcode again.", "info")
             return redirect(url_for("find_barcode"))
     return render_template("find_barcode.html", form=form)
+
+
+def get_barcode(form):
+    if form.input_code.data:
+        b_code = form.input_code.data
+        return b_code
+    elif form.image_code.data:
+        picture = form.image_code.data
+        i = Image.open(picture)
+        i.save("static/images/barcode.jpg")
+        bar_info = decode(Image.open("static/images/barcode.jpg"))
+        for barcode in bar_info:
+            b_code = barcode.data
+            return b_code
+    else:
+        return 'empty'
 
 
 @app.route('/food/<int:food_id>/delete', methods=['POST'])
