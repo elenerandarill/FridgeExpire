@@ -1,5 +1,5 @@
 from application import db
-from templates.models import Food
+from models import Food
 
 
 db.create_all()
