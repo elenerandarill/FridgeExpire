@@ -22,3 +22,14 @@ class BarFood(db.Model):
 
     def __repr__(self):
         return f"BarFood('{self.barcode}','{self.name}','{self.image_code}')"
+
+
+class NewFood(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    barcode = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    food_picture = db.Column(db.String(20), nullable=False, default='deffood.jpg')
+    exp_date = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        return f"NewFood('{self.barcode}','{self.name}','{self.food_picture}','{self.exp_date}')"

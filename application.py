@@ -133,9 +133,22 @@ def save_foodimage(form_img):
     return picture_fn
 
 
-@app.route('/food/<string:barcode>/add')
+@app.route('/food/<string:barcode>/add', methods=['GET', 'POST'])
 def disp_add_new_food_form(barcode):
-    return f"Now we can add new food, with barcode {barcode} already in db."
+    from forms import NewFoodForm
+    from models import BarFood, NewFood
+    form = NewFoodForm()
+    form.barcode.data = barcode
+    barfood = BarFood.query.filter_by(barcode=barcode).first()
+    form.name.data = barfood.name
+    form.food_picture_name.data = barfood.image_code
+    if form.validate_on_submit():
+        new_food = NewFood(barcode=barfood.barcode, name=barfood.name, food_picture=barfood.image_code, exp_date=form.exp_date.data)
+        db.session.add(new_food)
+        db.session.commit()
+        flash("New food has been added.", "success")
+        return redirect(url_for("home"))
+    return render_template("add_new_food.html", form=form, barcode=barcode)
 
 
 @app.route('/food/<int:food_id>/delete', methods=['POST'])

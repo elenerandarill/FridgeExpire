@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form method="POST" action="{{ url_for('insert_new_bar') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for("insert_new_bar") }}" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset>
             <div>

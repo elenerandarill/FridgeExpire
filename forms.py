@@ -24,7 +24,11 @@ class NewBarForm(FlaskForm):
     submit = SubmitField('Add New Barcode')
 
 
-class NewFoodForm(NewBarForm):
+class NewFoodForm(FlaskForm):
+    barcode = StringField('Barcode', validators=[DataRequired()])
+    name = StringField('Name', validators=[])
+    food_picture = FileField('Add Picture', validators=[FileAllowed(['jpg', 'png'])])
+    food_picture_name = StringField('Food Picture Name')
     exp_date = DateField('Expiration date', validators=[DataRequired()])
     submit = SubmitField('Add New Food')
 

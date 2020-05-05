@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div class="div_space">
-        <form method="POST" action="/barcode/find" enctype="multipart/form-data">
+        <form method="POST" action="{{ url_for("find_barcode") }}" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset>
                 <br>

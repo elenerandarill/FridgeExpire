@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form method="POST" action="{{ url_for("disp_add_new_food_form", barcode=barcode) }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            <div>
+                {{ form.barcode.label() }}
+                {{ form.barcode() }}
+            </div>
+            <div>
+                {{ form.name.label() }}
+                {{ form.name() }}
+            </div>
+            <div>
+                {{ form.food_picture.label() }}
+                <input id="food_picture" name="food_picture" type="file" accept="image/*" capture="camera">
+            </div>
+            <div>
+                {{ form.food_picture_name.label() }}
+                {{ form.food_picture_name() }}
+            </div>
+            <div>
+                {{ form.exp_date.label() }}
+                {{ form.exp_date() }}
+            </div>
+        </fieldset>
+        <div>
+            {{ form.submit(class="button") }}
+        </div>
+    </form>
+{% endblock %}

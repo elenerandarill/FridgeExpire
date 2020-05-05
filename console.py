@@ -8,7 +8,7 @@ db.create_all()
 # db.session.add(food1)
 # db.session.commit()
 #
-print(Food.query.all())
+# print(BarFood.query.all())
 
 
 # db.drop_all()
