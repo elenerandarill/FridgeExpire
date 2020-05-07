@@ -7,10 +7,6 @@
     </div>
     <br>
     <div class="div_space">
-        Would you like to<a class="button_small" href="{{ url_for('add_food') }}">ADD</a>new food?
-    </div>
-    <br>
-    <div class="div_space">
         Would you like to <a class="button_small" href="{{ url_for('find_barcode') }}">SCAN</a> your barcode?
     </div>
     <br>
@@ -36,7 +32,7 @@
                         </td>
                     {% endif %}
                     <td>{{ food.name }}</td>
-                    <td><img src="{{ url_for('static', filename='images/') }}{{ food.picture }}"></td>
+                    <td><img src="{{ url_for('static', filename='images/' + food.food_picture) }}"></td>
                     <td><form action="{{ url_for('delete_food', food_id=food.id) }}" method="POST">
                             <input class="button_small" type="submit" value="Delete">
                         </form>
