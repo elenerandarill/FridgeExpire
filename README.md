@@ -5,7 +5,7 @@
 
 
 ## Description
-Application for registering food with it`s expiry date and picture. 
+Application for registering food with it's expiry date and picture. 
 Adding/Deleting food options and checking for duplicates in database. 
 Table shows foods in order from the shortest to longest expity days left. 
 Food that's going to expire soon will be marked with `red` color.
