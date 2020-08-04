@@ -3,7 +3,7 @@ import datetime
 import os
 import secrets
 
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from flask import Flask, url_for, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
@@ -44,7 +44,7 @@ def find_barcode():
 def get_barcode(form):
     if form.input_code.data:
         b_code = form.input_code.data
-        return b_code
+        return b_code.encode("utf-8")
     elif form.image_code.data:
         picture = form.image_code.data
         i = Image.open(picture)
